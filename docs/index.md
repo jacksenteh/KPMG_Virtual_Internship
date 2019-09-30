@@ -91,7 +91,7 @@ df_train['state'] = df_train['state'].apply(name2code)
 I decide not to discuss the data transformation and missing value step, because the approaches taken are relative straight forward and could be found in the [*Data_Analysis.ipynb*](https://github.com/jacksenteh/KPMG_Virtual_Internship/blob/master/Data_Analysis.ipynb) file.
 The rough pre-process dataset contains the following features: 
 
-![Pearson_correlation](../images/pearson_corr_1.png)
+![Pearson_correlation](images/pearson_corr_1.png)
 
 Not gonna lie, the data formatting, transformation, and cleaning took me 6 hours....
 As you can see from the Pearson correlation plot, most of the customer demographics does not correlate with the number of bike accessory purchased (i.e., *purchased_history_bin*).
