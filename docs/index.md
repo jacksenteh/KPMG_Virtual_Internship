@@ -98,6 +98,16 @@ As you can see from the Pearson correlation plot, most of the customer demograph
 Be that as it may, the dataset is ready for us to explore. Before we move forward, I advise all the non-business major to read through some marketing strategies, such as [STP](https://devrix.com/tutorial/stp-model-of-marketing-segmentation-targeting-positioning/).
 These strategies will provide guidance on how to approach this problem.
 
+## Who is your customer?
+Let's find out who is the Sprocket Central Pty Ltd's customer. 
+To achieve this, we can group the customer according to their demographics and address, such as *'job_categories'*.
+
+![job_categories_count](images/job_categories.png)
+![gender_count](images/gender_count.png)
+
+From the plot above, we found that most of the customer came from New South Wales and work in Manufacturing, Financial Service, Health and Retails. 
+
+## Why does your customer buy?
 
 
 # Model Developments
