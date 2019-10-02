@@ -24,13 +24,14 @@ Based on the three datasets, you were asked to complete the following three task
 4. **Model Development:** Determine and development machine learning models.
 5. **Result Interpretation:** Creating a powerpoint presentation which outlines the approaches you take for the data exploration, pre-processing and model development. 
 
-Before working on the task, you need to remember that you goal is to provide strategies to the customer's marketing team. 
-Every approaches you take should be interpretable to the customer! 
-So if you decide to use a deep neural network to analyze the customer behavior, make sure you can explain it to the customer.
+In this blog, I will not go through the data quality assessment. 
+If you are new to this task, you can refer to the table below or google the data quality framework tables.
 
-In this blog, I will not go through the data quality assessment. If you are new to this task, you can refer to the table below or google the data quality framework tables.
+![Data_Quality](images/dq_table.png)
 
-![Data_Quality](images/dq_table.png)    
+Before working on these tasks, you need to remember that your goal is to provide strategies to the customer's marketing team. 
+This means that every approaches you take should be interpretable to the customer! 
+So if you decide to use a deep neural network to analyze the market, make sure you can explain it to the customer.
 
 ***Please note that the data scientist in KPMG might not reply or communicate with you during the process. A model answer will be provided on each stage and you have to conduct a self-assessment by comparing your's to the model answer.***
 
