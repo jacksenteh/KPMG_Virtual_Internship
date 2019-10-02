@@ -27,7 +27,7 @@ Based on the three datasets, you were asked to complete the following three task
 In this blog, I will not go through the data quality assessment. 
 If you are new to this task, you can refer to the table below or google the data quality framework tables.
 
-![Data_Quality](images/dq_table.png)
+![Data_Quality](images/dq_table_2.png)
 
 Before working on these tasks, you need to remember that your goal is to provide strategies to the customer's marketing team. 
 This means that every approaches you take should be interpretable to the customer! 
