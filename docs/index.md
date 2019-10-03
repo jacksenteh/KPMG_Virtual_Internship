@@ -143,7 +143,7 @@ If you pay attention during the data quality assessment task, you should notice 
 Furthermore, a few of the *customer_id* in df_trans_mod does not match with df_train *customer_id*. 
 As you can see above, I solve these problems by simply grouping the customer and drop the mismatch customer.
 
-Hopefully you understand why I do group then sum according to each customer.
+Hopefully you understand why I do group then sum on each customer.
 If you don't understand, I encourage you to take some time and read through some marketing strategies, such as [STP](https://devrix.com/tutorial/stp-model-of-marketing-segmentation-targeting-positioning/).
 These strategies will provide guidance on how to approach this problem.
 In brief, the CustomerDemographics and CustomerAddress provide us information on **who** is our customer, while the grouping and summing of transaction could tell us **why** the customer buy.
@@ -154,25 +154,30 @@ With this plot, we can tell a lot of stories. On of the most obvious story is th
 This shows that if the listed price of a product is closer to the standard cost (i.e., closer to 0), customer tends to buy more!
 But since we got 36 features, the total number of combination without replacement is 36 factorial! How are we going to study that many relationships???
 
-This is when machine learning model come in. Specifically unsupervised learning models.
+This is when machine learning magic come in. 
+Specifically, we can use clustering model to segment the customer and study them.
 
 # Model Developments
 If you are not familiar with unsupervised learning model, please read [Unsupervised Learning](https://towardsdatascience.com/10-machine-learning-methods-that-every-data-scientist-should-know-3cc96e0eeee9) 
 and [Clustering model](https://towardsdatascience.com/the-5-clustering-algorithms-data-scientists-need-to-know-a36d136ef68).
-Here, we can start by using the basic clustering models, KMeans.
+Here, we can start by using the basic clustering models, KMeans, and the elbow method to determine the number of clusters (refer to this [blog](https://towardsdatascience.com/k-means-clustering-with-scikit-learn-6b47a369a83c) for more information about the elbow method).
+
 
 ```bash
 from sklearn.cluster import KMeans
 
-model = KMeans(n_clusters=4, n_init=300, max_iter=3000, verbose=0)
-model.fit(df_train)
+cluster_sse = []
 
-# get the labels and each cluster center point
-labels = set(model.labels_)
-c_cluster = model.cluster_centers_
+for i in range(3, 8):
+    model = KMeans(n_clusters=i, n_init=300, max_iter=3000, verbose=0)
+    model.fit(df_train)
+    cluster_sse.append(model.inertia_)
 
 ```
-After that, we can use the center point of each cluster to check the market segmentation. 
+![elbow](images/elbow_1.png)
+
+Recall, the used of elbow method is to identify the number of cluster by locating the value where it decrease most rapid.
+From the plot above, we can see that the suitable value should be 4. 
 
 ## Who is your customer?
 Let's find out who is the Sprocket Central Pty Ltd's customer. 
