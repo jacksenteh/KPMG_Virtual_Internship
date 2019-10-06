@@ -33,12 +33,22 @@ Before working on these tasks, you need to remember that your goal is to provide
 This means that every approaches you take should be interpretable to the customer! 
 So if you decide to use a deep neural network to analyze the market, make sure you can explain it to the customer.
 
-***Please note that the data scientist in KPMG might not reply or communicate with you during the process. A model answer will be provided on each stage and you have to conduct a self-assessment by comparing your's to the model answer.***
+***Please note that this projects leans toward principle rather than actual developing the models and analyse the result.
+But if you want to practice your machine learning skills you are welcome to do so. 
+Just bear in mind there is no ground-truth data for you to check if your strategies are correct.***
 
 
 # Data Pre-processing and Exploration
-As the dataset provided are scattered, incomplete, inaccurate, inconsistent and invalid, it is difficult to explore the data!
-So, let's start by joining the CustomerDemographics and CustomerAddress file together through the *customer_id* and do some pre-processing and transformation.
+To perform well on this task, you need to form questions and hypothesis in business perspective.
+For example, does a high net worth customer spends more on bike accessories (i.e., high quality accessory)?
+Does a customer lives in big cities tends to choose cycle as their main transport to avoid traffic?
+Does the price variation between the list price and standard cost affect the number of sales?
+To answer these problems, you might need to reach out and gather the corresponding dataset.
+But before that, we can start by working with what we got to see if we can answer some of the questions.
+ 
+If you asses the quality of the three dataset at the beginning, you will find that the data is scattered, incomplete, inaccurate, inconsistent and invalid.
+At this point, it is difficult to for us explore the data.
+So, let's start by joining the CustomerDemographics and CustomerAddress file and perform pre-processing and transformation.
 
 ```bash
 import numpy as np
@@ -79,9 +89,7 @@ states_code = {'NEW SOUTH WALES': 'NSW',
                'VICTORIA'       : 'VIC'}
 
 # state name to state code formating function
-name2code = lambda name: states_code[name] \ 
-                            if name in states_code.keys() \ 
-                            else name
+name2code = lambda name: states_code[name] if name in states_code.keys() else name
 
 # fill the missing value with NSW
 df_train.loc[df_train.state.isna(), 'state'] = 'NSW'
@@ -95,14 +103,14 @@ df_train['age'] = df_train['DOB'].apply(DOB2Age)
 
 ```
 Please note that a few functions have been left out on this blog. The complete code could be found in the [*Data_Analysis.ipynb*](https://github.com/jacksenteh/KPMG_Virtual_Internship/blob/master/Data_Analysis.ipynb) file.
-After the rough pre-process and transformation, the dataframe obtain is shown below:
+After the imprudent pre-process and transformation, we should have the following dataframe:
 
 ![Pearson_correlation](images/pearson_corr_1.png)
 
 As you can see from the Pearson correlation plot, most of the customer demographics does not correlate with the number of bike accessory purchased (i.e., *purchased_history_bin*).
 At this point, we can assume that 1) the pre-processing is not sufficient and required some features engineering
 or 2) the customer demographics simply won't affect the market. 
-Since we don't have enough information or evidence to verify our hypothesis, we should just move on to include the transaction data.
+As I mentioned earlier, let's just work on what we have first which is merging with the transaction data.
 
 
 ```bash
@@ -139,23 +147,21 @@ df_train = pd.merge(df_train, df_group_sum, how='left', on='customer_id')
 df_train = df_train.dropna()
 
 ```
+
 If you pay attention during the data quality assessment task, you should notice the relationship between df_trans_mod and df_train dataframe is many to one.
 Furthermore, a few of the *customer_id* in df_trans_mod does not match with df_train *customer_id*. 
 As you can see above, I solve these problems by simply grouping the customer and drop the mismatch customer.
 
-Hopefully you understand why I do group then sum on each customer.
-If you don't understand, I encourage you to take some time and read through some marketing strategies, such as [STP](https://devrix.com/tutorial/stp-model-of-marketing-segmentation-targeting-positioning/).
-These strategies will provide guidance on how to approach this problem.
-In brief, the CustomerDemographics and CustomerAddress provide us information on **who** is our customer, while the grouping and summing of transaction could tell us **why** the customer buy.
-
 Up until this point, our dataframe should have the following features and correlation:
 ![Pearson_corr_2](images/pearson_corr_2.png)
-With this plot, we can tell a lot of stories. On of the most obvious story is the price. The price variation has high inverse correlation with *spending* and *order_status_Approved*.
-This shows that if the listed price of a product is closer to the standard cost (i.e., closer to 0), customer tends to buy more!
-But since we got 36 features, the total number of combination without replacement is 36 factorial! How are we going to study that many relationships???
+The total number of features we have is 36. 
+To study the relationship between variables, we had to go through all the possible combination which is 36 factorial! 
+Correct me if I am wrong, but I don't think going through each combination manually is the smart way for a data scientist.
 
-This is when machine learning magic come in. 
-Specifically, we can use clustering model to segment the customer and study them.
+If you are a business major, you might have some techniques how to analysis the market and customer.
+But since I am not a business major, I will train clustering models to help me do that.
+
+![mean_shift_model](images/mean_shift_clustering.gif)
 
 # Model Developments
 If you are not familiar with unsupervised learning model, please read [Unsupervised Learning](https://towardsdatascience.com/10-machine-learning-methods-that-every-data-scientist-should-know-3cc96e0eeee9) 
@@ -174,21 +180,60 @@ for i in range(3, 8):
     cluster_sse.append(model.inertia_)
 
 ```
-![elbow](images/elbow_1.png)
+![elbow](images/elbow_2.png)
 
 Recall, the used of elbow method is to identify the number of cluster by locating the value where it decrease most rapid.
-From the plot above, we can see that the suitable value should be 4. 
+From the plot above, we can see that the suitable value should be 6.
+To make sure each cluster does not overlap with each other, we can do a fast check on the profits of each cluster.
+
+![cluster_profit](images/cluster_profit.png)
+
+So it seems like each cluster is different to each other. 
+Hence, we can start dig deeper into each cluster and find out why is it different.   
 
 ## Who is your customer?
-Let's find out who is the Sprocket Central Pty Ltd's customer. 
-To achieve this, we can group the customer according to their demographics and address, such as *'job_categories'*.
 
-![job_categories_count](images/job_categories.png)
-![gender_count](images/gender_count.png)
+![who_is_your_customer](images/who.png)
 
-From the plot above, we found that most of the customer came from New South Wales and work in Manufacturing, Financial Service, Health and Retails. 
+## what did your customer buy?
+![what_did_your_customer_buy](images/what.png)
 
-## Why does your customer buy?
+## who buy what?
+With the two dashboard above we can summarize the customer on each cluster contain the following demographics and behavior:
+
+**Cluster 4:**
+* Female customer whose net worth been classified as Affluent customer.
+* Age around 40 y/o.
+* Work in Financial Service or Manufacturing.
+* Prefer medium size WeareA2B and Solex product.
+* Prefer standard or touring bike.
+
+**Cluster 0:**
+* Female customer whose net worth been classified as Mass customer.
+* Age around 41 y/o.
+* Work in Manufacturing.
+* Prefer medium size WeareA2B and Solex product.
+* Prefer standard or touring bike.
+
+**Cluster 1:**
+* Male customer 
+* Age around 42 y/o.
+* Work in Financial Service.
+ 
 
 
-  
+# Conclusion
+The whole project took me 2 days to complete and the approaches I took is just the tip of the ice on what could be done to analysis the market.
+After completing this project, I realise the skills required for this project are as follow:
+* 40% on data analysis - data quality assessment, pre-processing and exploration. 
+* 30% on marketing - marketing strategies (e.g., STP), statistical testing on the hypothesis made on the market trend.
+* 25% on machine learning - model development.
+* 5%  on presentation - Powerpoint and Tableau.
+
+This project is no doubt a data scientist job, but as you can see its not always about machine learning, deep learning or AI model development! 
+In my perspective, the key value of data scientist is the ability of analysis big data in the most efficient way (i.e., machine learning and deep learning) and provide accurate estimation.
+
+
+The most challenging task for me is to form the right hypothesis and questions. 
+For example, how do I identify who is the customer?
+
