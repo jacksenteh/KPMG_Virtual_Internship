@@ -17,7 +17,7 @@ To achieve this aim, the customer has provided three datasets for KPMG. The data
 * CustomerAddress
 * Transaction
 
-Based on the three datasets, you were asked to complete the following three tasks and submitted to the website for evaluation:
+Based on the three datasets, you were asked to complete the following tasks and submitted to the website for evaluation:
 1. **Data Quality Assessment:** In this task, you were asked to analyze the quality of the dataset provided by the customer by identifying all the issues. Subsequently, you need to send an email to the customer summarizing the issues found.
 2. **Data Exploration:** Explore and understanding the data distribution (i.e., customer personality, behaviors, etc.).
 3. **Data Pre-processing:** Data cleaning, data transformation and features engineering. 
@@ -34,8 +34,7 @@ This means that every approaches you take should be interpretable to the custome
 So if you decide to use a deep neural network to analyze the market, make sure you can explain it to the customer.
 
 ***Please note that this projects leans toward principle rather than actual developing the models and analyse the result.
-But if you want to practice your machine learning skills you are welcome to do so. 
-Just bear in mind there is no ground-truth data for you to check if your strategies are correct.***
+But if you want to practice your machine learning skills you are welcome to do so.***
 
 
 # Data Pre-processing and Exploration
@@ -189,7 +188,9 @@ To make sure each cluster does not overlap with each other, we can do a fast che
 ![cluster_profit](images/cluster_profit.png)
 
 So it seems like each cluster is different to each other. 
-Hence, we can start dig deeper into each cluster and find out why is it different.   
+Hence, we can start dig deeper into each cluster and find out why is it different. 
+Before we start, let's recall the aim of this project. The aim of this project is to help Sprocket Central Pty Ltd target new customer.
+But what is the right way to target the customer  
 
 ## Who is your customer?
 
@@ -202,14 +203,14 @@ Hence, we can start dig deeper into each cluster and find out why is it differen
 With the two dashboard above we can summarize the customer on each cluster contain the following demographics and behavior:
 
 **Cluster 4:**
-* Female customer whose net worth been classified as Affluent customer.
+* Female customer 
 * Age around 40 y/o.
 * Work in Financial Service or Manufacturing.
 * Prefer medium size WeareA2B and Solex product.
 * Prefer standard or touring bike.
 
 **Cluster 0:**
-* Female customer whose net worth been classified as Mass customer.
+* Female customer 
 * Age around 41 y/o.
 * Work in Manufacturing.
 * Prefer medium size WeareA2B and Solex product.
@@ -219,21 +220,30 @@ With the two dashboard above we can summarize the customer on each cluster conta
 * Male customer 
 * Age around 42 y/o.
 * Work in Financial Service.
- 
+* Prefer medium size WearA2B and large Trek Bicycle.
+* Prefer standard bike
 
+Hence, the target customer priority should be rank as: cluster 4, 0, 1, 5, 3 and 2, if your strategies is to help the company gain the highest profit.
 
 # Conclusion
-The whole project took me 2 days to complete and the approaches I took is just the tip of the ice on what could be done to analysis the market.
+The approaches I took in this project is to target the customer who can help generate high profit for Sprocket Central Pty Ltd.
+There might be a better approach in business perspective.
+Please note that the dashboard does not represent the whole market distribution. 
+
+Depends on what is your business strategies, the dashboard presented to the customer should be different.
+For example, the high net worth customer had a spend more than mass customer on average, but the number of customer in significant lower than mass customer.
+In this case, should you advise Sprocket Central Pty Ltd. to target high net worth customer in certain state of Australia?
+
+For me, the whole project took me 3 days to complete and the approaches I took is just the tip of the ice on what could be done to analysis the market.
 After completing this project, I realise the skills required for this project are as follow:
 * 40% on data analysis - data quality assessment, pre-processing and exploration. 
-* 30% on marketing - marketing strategies (e.g., STP), statistical testing on the hypothesis made on the market trend.
-* 25% on machine learning - model development.
-* 5%  on presentation - Powerpoint and Tableau.
+* 35% on marketing - marketing strategies (e.g., STP), statistical testing on the hypothesis made on the market trend.
+* 15% on machine learning - model development.
+* 10%  on presentation - Powerpoint and Tableau.
 
 This project is no doubt a data scientist job, but as you can see its not always about machine learning, deep learning or AI model development! 
 In my perspective, the key value of data scientist is the ability of analysis big data in the most efficient way (i.e., machine learning and deep learning) and provide accurate estimation.
-
-
-The most challenging task for me is to form the right hypothesis and questions. 
-For example, how do I identify who is the customer?
+Hopefully, the approaches I describe above is clear. 
+If you got a questions or suggestion, feel free to send me an [email](jacksenteh@gmail.com) or find me on [twitter](https://twitter.com/Jacksen1995).
+Thank you for reading!
 
